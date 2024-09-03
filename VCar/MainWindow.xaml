@@ -10,7 +10,7 @@
 
     <Grid>
 
-        <!-- Grid Connexion Test push-->
+        <!-- Grid Connexion -->
         <Grid x:Name="gridConnexion" Background="Black" Visibility="Visible">
             <StackPanel x:Name="stackConnexion" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="100" MinWidth="200" Background="Black" Visibility="Visible">
                 <Label Content="Identifiant" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
