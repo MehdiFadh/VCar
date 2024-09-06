@@ -11,7 +11,7 @@
     <Grid>
 
         <!-- Grid Connexion -->
-        <Grid x:Name="gridConnexion" Background="Black" Visibility="Collapsed">
+        <Grid x:Name="gridConnexion" Background="Black" Visibility="Visible">
             <StackPanel x:Name="stackConnexion" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="100" MinWidth="200" Background="Black" Visibility="Visible">
                 <Label Content="Identifiant" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                 <TextBox x:Name="txtIdentifiant" TextWrapping="Wrap" FontSize="22" FontFamily="Calibri" Background="Black" BorderBrush="White" Foreground="White" Margin="0,0,0,20"/>
@@ -35,12 +35,39 @@
                 </WrapPanel>
             </StackPanel>
         </Grid>
-        
+
         <!--Fin Grid Connexion-->
-        
+
         <!-- Grid Accueil -->
-        <Grid x:Name="gridAccueil" Visibility="Visible" Background="#FF313131">
+        <Grid x:Name="gridAccueil" Visibility="Collapsed" Background="#FF313131">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="41*"/>
+            </Grid.ColumnDefinitions>
+
             
+            <!-- Grid Gauche Menu-->
+            <Grid x:Name="gridMenu" Grid.Column="0">
+                <StackPanel Background="#FF272727">
+                    <Label Content="Vcar" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Foreground="White"/>
+                    <Button x:Name="butRecherche" Content="Recherche" Margin="0,59,0,0" Height="40" Click="butRecherche_Click"/>
+                    <Button x:Name="butDemande" Content="Demande" Margin="0,24,0,0" Height="40" Click="butDemande_Click"/>
+                </StackPanel>
+            </Grid>
+            
+
+            <!-- Grid Droite Recherche-->
+            <Grid x:Name="gridRecherche" Grid.Column="1" Visibility="Visible">
+                <Label Content="Bienvenue dans la zone de recherche" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            </Grid>
+
+            <!-- Grid Droite Demande-->
+            <Grid x:Name="gridDemande" Grid.Column="1" Visibility="Collapsed">
+                <Label Content="Bienvenue dans la zone de demande" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            </Grid>
+
+
+
         </Grid>
 
 
