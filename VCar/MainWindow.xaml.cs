@@ -22,8 +22,6 @@ namespace VCar
         {
             InitializeComponent();
             txtIdentifiant.Focus();
-
-
         }
 
         private void butAnnuler_Click(object sender, RoutedEventArgs e)
@@ -68,12 +66,14 @@ namespace VCar
         private void butRecherche_Click(object sender, RoutedEventArgs e)
         {
             gridDemande.Visibility = Visibility.Collapsed;
+            gridContact.Visibility = Visibility.Collapsed;
             gridRecherche.Visibility = Visibility.Visible;
         }
 
         private void butDemande_Click(object sender, RoutedEventArgs e)
         {
             gridRecherche.Visibility = Visibility.Collapsed;
+            gridContact.Visibility = Visibility.Collapsed;
             gridDemande.Visibility = Visibility.Visible;
         }
 
@@ -86,5 +86,11 @@ namespace VCar
             }
         }
 
+        private void butContact_Click(object sender, RoutedEventArgs e)
+        {
+            gridRecherche.Visibility = Visibility.Collapsed;
+            gridDemande.Visibility = Visibility.Collapsed;
+            gridContact.Visibility = Visibility.Visible;
+        }
     }
 }
