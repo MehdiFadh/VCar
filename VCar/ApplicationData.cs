@@ -11,14 +11,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
-namespace MatISN
+namespace VCar
 {
 
     public class ApplicationData
     {
-
+        private ObservableCollection<Materiel> lesMateriels;
         private NpgsqlConnection connexion = null;   // futur lien à la BD
 
+        
+
+        public ObservableCollection<Materiel> LesMateriels
+        {
+            get { return this.lesMateriels; }
+            set { this.lesMateriels = value; }
+        }
 
 
         public NpgsqlConnection Connexion
@@ -44,11 +51,11 @@ namespace MatISN
             try
             {
                 Connexion = new NpgsqlConnection();
-                Connexion.ConnectionString = "Host=ep-morning-wood-a27nq1on.eu-central-1.aws.neon.tech;" +
-                    "Port=5433;" +
-                    "Username=eligiusdb_owner" +
-                    "Password=tf4Ag8qwiJoT" +
-                    "Database=eligiusdb";
+                Connexion.ConnectionString = "Server=ep-morning-wood-a27nq1on.eu-central-1.aws.neon.tech;" +
+                                            "port=5432;" +
+                                            "Database=eligiusdb;" +
+                                            "uid=eligiusdb_owner;" +
+                                            "password=tf4Ag8qwiJoT;";
                 //à compléter dans les "" 
                 // @ sert à enlever tout pb avec les caractères 
                 Connexion.Open();
@@ -62,8 +69,8 @@ namespace MatISN
 
         public int Read()
         {
-            
-            String sql = "";
+            LesMateriels = new ObservableCollection<Materiel>();
+            String sql = "select ID, NOM, CATEGORIE, PRIX from MATERIEL";
 
             try
             {
@@ -72,7 +79,9 @@ namespace MatISN
                 dataAdapter.Fill(dataTable);
                 foreach (DataRow res in dataTable.Rows)
                 {
-                    
+                    Materiel nouveau = new Materiel(int.Parse(res["ID"].ToString()), res["NOM"].ToString(),
+                    res["CATEGORIE"].ToString(), int.Parse(res["PRIX"].ToString()));
+                    LesMateriels.Add(nouveau);
                 }
                 return dataTable.Rows.Count;
             }
