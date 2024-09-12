@@ -68,7 +68,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="70,70,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Image Source="{Binding CheminImage}" Width="100" Height="100"></Image>
+                                    <Image Source="bmw_M4.jpg" Width="100" Height="100"></Image>
                                     
                                     <TextBlock Text="{Binding Nom}" Margin="30,5,5,5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                     <TextBlock Text="{Binding Categorie}" Margin="5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
