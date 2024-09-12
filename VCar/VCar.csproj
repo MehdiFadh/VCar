@@ -16,7 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="8.0.3" />
+    <PackageReference Include="Npgsql" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="bmw_M4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="img\bmw_M4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

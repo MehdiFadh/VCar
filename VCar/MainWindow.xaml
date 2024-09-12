@@ -63,18 +63,22 @@
 
             <!-- Grid Droite Recherche-->
             <Grid x:Name="gridRecherche" Grid.Column="1" Visibility="Visible">
-                <ListBox x:Name="EquipmentList" SelectionMode="Multiple" ItemsSource="{Binding LesMateriels}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="70,70,0,0">
-                                <TextBlock Text="{Binding  Id}" Margin="5" FontSize="20" FontFamily="Calibri"></TextBlock>
-                                <TextBlock Text="{Binding Nom}" Margin="5" FontSize="20" FontFamily="Calibri"></TextBlock>
-                                <TextBlock Text="{Binding Categorie}" Margin="5" FontSize="20" FontFamily="Calibri"></TextBlock>
-                                <TextBlock Text="{Binding Prix}" Margin="5" FontSize="20" FontFamily="Calibri"></TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Border CornerRadius="10"  Background="White" Margin="50">
+                    <ListBox x:Name="EquipmentList" SelectionMode="Multiple" ItemsSource="{Binding LesMateriels}" Margin="10" BorderBrush="White">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="70,70,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Image Source="{Binding CheminImage}" Width="100" Height="100"></Image>
+                                    
+                                    <TextBlock Text="{Binding Nom}" Margin="30,5,5,5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding Categorie}" Margin="5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding Prix}" Margin="5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                
 
             </Grid>
             <!-- Fin Grid Droite Recherche-->

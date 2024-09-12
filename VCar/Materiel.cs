@@ -16,6 +16,15 @@ namespace VCar
 			set { this.id = value; }
 		}
 
+		private string cheminImage;
+
+		public string CheminImage
+		{
+			get { return this.cheminImage; }
+			set { this.cheminImage = value; }
+		}
+
+
 		private string nom;
 
 		public string Nom
@@ -50,6 +59,15 @@ namespace VCar
 
         public Materiel()
         {
+        }
+
+        public Materiel(string cheminImage, int id, string nom, string categorie, double prix)
+        {
+            CheminImage = cheminImage;
+            Id = id;
+            Nom = nom;
+            Categorie = categorie;
+            Prix = prix;
         }
     }
 }
