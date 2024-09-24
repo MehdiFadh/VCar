@@ -92,5 +92,17 @@ namespace VCar
             gridDemande.Visibility = Visibility.Collapsed;
             gridContact.Visibility = Visibility.Visible;
         }
+
+        private void txtRecherche_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtRecherche.Text = "";
+        }
+
+        private void butVoir_MouseEnter(object sender, MouseEventArgs e)
+        {
+            //butVoir.Background = Brushes.Black;
+        }
+
+        
     }
 }

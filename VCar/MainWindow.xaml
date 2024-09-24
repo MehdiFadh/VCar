@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VCar"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Vcar - Connexion" Height="850" Width="1200" MinHeight="230" MinWidth="320">
+        Title="Vcar - Connexion" Height="450" Width="800" MinHeight="230" MinWidth="320">
 
     <Window.DataContext>
         <local:ApplicationData x:Name="data"/>
@@ -15,21 +15,21 @@
     <Grid>
 
         <!-- Grid Connexion -->
-        <Grid x:Name="gridConnexion" Background="Black" Visibility="Collapsed">
-            <StackPanel x:Name="stackConnexion" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="100" MinWidth="200" Background="Black" Visibility="Visible">
+        <Grid x:Name="gridConnexion" Background="#FF141414" Visibility="Visible">
+            <StackPanel x:Name="stackConnexion" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="100" MinWidth="200" Background="#FF141414" Visibility="Visible">
                 <Label Content="Identifiant" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox x:Name="txtIdentifiant" TextWrapping="Wrap" FontSize="22" FontFamily="Calibri" Background="Black" BorderBrush="White" Foreground="White" Margin="0,0,0,20"/>
+                <TextBox x:Name="txtIdentifiant" TextWrapping="Wrap" FontSize="22" FontFamily="Calibri" Background="#B2FFFFFF" BorderBrush="White" Foreground="Black" Margin="0,0,0,20"/>
                 <Label Content="Mot de passe" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                <PasswordBox x:Name="txtPassword" FontSize="22" Background="Black" BorderBrush="White" Foreground="White"/>
+                <PasswordBox x:Name="txtPassword" FontSize="22" Background="#B2FFFFFF" BorderBrush="White" Foreground="Black"/>
                 <WrapPanel Margin="0,60,0,0">
-                    <Button x:Name="butAnnuler" Content="Annuler" Height="35" Width="80" Background="Red" HorizontalAlignment="Left" Click="butAnnuler_Click" BorderBrush="Black" IsCancel="True">
+                    <Button x:Name="butAnnuler" Content="Annuler" Height="32" Width="120" Background="#0FFFFFFF" HorizontalAlignment="Left" Click="butAnnuler_Click" BorderBrush="Black" IsCancel="True" Foreground="White">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="butConnexion" Content="Connexion" Width="80" Height="35" Background="#FF4FFF00" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="110,0,0,0" Click="butConnexion_Click" Foreground="Black" BorderBrush="Black" IsDefault="True">
+                    <Button x:Name="butConnexion" Content="Connexion" Width="120" Height="32" Background="#FF005FB8" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="110,0,0,0" Click="butConnexion_Click" Foreground="White" BorderBrush="Black" IsDefault="True">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -43,7 +43,7 @@
         <!--Fin Grid Connexion-->
 
         <!-- Grid Accueil -->
-        <Grid x:Name="gridAccueil" Visibility="Visible" Background="#FF313131">
+        <Grid x:Name="gridAccueil" Visibility="Collapsed" Background="#FF313131">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="9*"/>
                 <ColumnDefinition Width="41*"/>
@@ -62,23 +62,35 @@
             
 
             <!-- Grid Droite Recherche-->
-            <Grid x:Name="gridRecherche" Grid.Column="1" Visibility="Visible">
+            <Grid x:Name="gridRecherche" Grid.Column="1" Visibility="Visible" >
+
+                <Border  CornerRadius="5" Background="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,80,0" Width="200" Height="20">
+                    <TextBox x:Name="txtRecherche" TextWrapping="Wrap" Text="Rechercher" Margin="2" VerticalAlignment="Center" BorderBrush="White" FontFamily="Roboto" GotFocus="txtRecherche_GotFocus"/>
+                </Border>
+                
+
                 <Border CornerRadius="10"  Background="White" Margin="50">
                     <ListBox x:Name="EquipmentList" SelectionMode="Multiple" ItemsSource="{Binding LesMateriels}" Margin="10" BorderBrush="White">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="70,70,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Image Source="bmw_M4.jpg" Width="100" Height="100"></Image>
+                                <StackPanel Orientation="Horizontal" Margin="70,70,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image Source="{Binding CheminImage}" Width="100" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
                                     
                                     <TextBlock Text="{Binding Nom}" Margin="30,5,5,5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                     <TextBlock Text="{Binding Categorie}" Margin="5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                     <TextBlock Text="{Binding Prix}" Margin="5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                                    <Border CornerRadius="10" Background="Black" Height="50" Margin="100,0,0,0" >
+                                        <Button x:Name="butVoir" Margin="5" Content="Voir la voiture" Background="Black" BorderBrush="Black" Foreground="White" MouseEnter="butVoir_MouseEnter" />
+                                    </Border>
+                                    
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Border>
                 
+
 
             </Grid>
             <!-- Fin Grid Droite Recherche-->
