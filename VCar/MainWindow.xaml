@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VCar"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Vcar - Connexion" Height="450" Width="800" MinHeight="230" MinWidth="320">
+        Title="Vcar - Connexion" Height="850" Width="1200" MinHeight="230" MinWidth="320">
 
     <Window.DataContext>
         <local:ApplicationData x:Name="data"/>
@@ -15,7 +15,7 @@
     <Grid>
 
         <!-- Grid Connexion -->
-        <Grid x:Name="gridConnexion" Background="#FF141414" Visibility="Visible">
+        <Grid x:Name="gridConnexion" Background="#FF141414" Visibility="Collapsed">
             <StackPanel x:Name="stackConnexion" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="100" MinWidth="200" Background="#FF141414" Visibility="Visible">
                 <Label Content="Identifiant" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                 <TextBox x:Name="txtIdentifiant" TextWrapping="Wrap" FontSize="22" FontFamily="Calibri" Background="#B2FFFFFF" BorderBrush="White" Foreground="Black" Margin="0,0,0,20"/>
@@ -43,7 +43,7 @@
         <!--Fin Grid Connexion-->
 
         <!-- Grid Accueil -->
-        <Grid x:Name="gridAccueil" Visibility="Collapsed" Background="#FF313131">
+        <Grid x:Name="gridAccueil" Visibility="Visible" Background="#FF313131">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="9*"/>
                 <ColumnDefinition Width="41*"/>
@@ -80,10 +80,14 @@
                                     <TextBlock Text="{Binding Categorie}" Margin="5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                     <TextBlock Text="{Binding Prix}" Margin="5" FontSize="20" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
-                                    <Border CornerRadius="10" Background="Black" Height="50" Margin="100,0,0,0" >
-                                        <Button x:Name="butVoir" Margin="5" Content="Voir la voiture" Background="Black" BorderBrush="Black" Foreground="White" MouseEnter="butVoir_MouseEnter" />
-                                    </Border>
-                                    
+                                    <Button x:Name="butConnexion" Content="Connexion" Width="120" Height="32" Background="#FF005FB8" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="110,0,0,0" Click="butConnexion_Click" Foreground="White" BorderBrush="Black" IsDefault="True">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
