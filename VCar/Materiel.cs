@@ -25,12 +25,12 @@ namespace VCar
 		}
 
 
-		private string nom;
+		private string marque;
 
-		public string Nom
+		public string Marque
 		{
-			get { return this.nom; }
-			set { this.nom = value; }
+			get { return this.marque; }
+			set { this.marque = value; }
 		}
 
 		private string categorie;
@@ -41,6 +41,15 @@ namespace VCar
 			set { this.categorie = value; }
 		}
 
+		private string modele;
+
+		public string Modele
+		{
+			get { return this.modele; }
+			set { this.modele = value; }
+		}
+
+
 		private double prix;
 
 		public double Prix
@@ -49,10 +58,22 @@ namespace VCar
 			set { this.prix = value; }
 		}
 
-        public Materiel(int id, string nom, string categorie, double prix)
+        public Materiel(int id, string marque, string modele, string categorie, double prix, string cheminImage)
         {
             Id = id;
-            Nom = nom;
+            Marque = marque;
+            Modele = modele;
+            Categorie = categorie;
+            Prix = prix;
+            CheminImage = cheminImage;
+        }
+
+        public Materiel(string cheminImage, int id, string marque, string modele, string categorie, double prix)
+        {
+            CheminImage = cheminImage;
+            Id = id;
+            Marque = marque;
+            Modele = modele;
             Categorie = categorie;
             Prix = prix;
         }
@@ -61,12 +82,13 @@ namespace VCar
         {
         }
 
-        public Materiel(string cheminImage, int id, string nom, string categorie, double prix)
+        public Materiel(int id, string cheminImage, string marque, string categorie, string modele, double prix)
         {
-            CheminImage = cheminImage;
             Id = id;
-            Nom = nom;
+            CheminImage = cheminImage;
+            Marque = marque;
             Categorie = categorie;
+            Modele = modele;
             Prix = prix;
         }
     }

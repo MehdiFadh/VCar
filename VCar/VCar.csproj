@@ -6,40 +6,86 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Sans titre (Icône iOS).ico</ApplicationIcon>
+    <ApplicationIcon>Icon_Vcar.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="img\**" />
+    <EmbeddedResource Remove="img\**" />
+    <None Remove="img\**" />
+    <Page Remove="img\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="AstonMartinDB11.jpg" />
+    <None Remove="AudiRS7.png" />
+    <None Remove="BmwM4.jpg" />
     <None Remove="bmw_M4.jpg" />
+    <None Remove="bmw_M4_Competition.jpg" />
+    <None Remove="ChevroletCamaro.jpg" />
+    <None Remove="Ferrari488GTB.jpg" />
+    <None Remove="LamborghiniURUS.png" />
     <None Remove="logo_VcarR.ico" />
+    <None Remove="MaseratiLevante.jpg" />
+    <None Remove="MercedesGClass.jpg" />
+    <None Remove="NissanGTR.jpg" />
+    <None Remove="Porsche911Carrera.jpg" />
+    <None Remove="RangeRoverEvoque.jpg" />
+    <None Remove="TeslaModelS.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Sans titre (Icône iOS).ico">
+    <Content Include="Icon_Vcar.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="AstonMartinDB11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="AudiRS7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="BmwM4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="bmw_M4_Competition.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChevroletCamaro.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ferrari488GTB.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icon_Vcar.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="LamborghiniURUS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MaseratiLevante.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MercedesGClass.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="NissanGTR.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Porsche911Carrera.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="RangeRoverEvoque.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="TeslaModelS.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Vcar.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="bmw_M4.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Npgsql" Version="8.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="img\bmw_M4.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+    <PackageReference Include="Npgsql" Version="8.0.5" />
   </ItemGroup>
 
 </Project>

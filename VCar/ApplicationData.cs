@@ -70,7 +70,7 @@ namespace VCar
         public int Read()
         {
             LesMateriels = new ObservableCollection<Materiel>();
-            String sql = "select CHEMINIMAGE, ID, NOM, CATEGORIE, PRIX from VOITURE";
+            String sql = "select CHEMINIMAGE, ID, MARQUE, MODELE, CATEGORIE, PRIX from VOITURE";
 
             try
             {
@@ -79,7 +79,7 @@ namespace VCar
                 dataAdapter.Fill(dataTable);
                 foreach (DataRow res in dataTable.Rows)
                 {
-                    Materiel nouveau = new Materiel(res["CHEMINIMAGE"].ToString(), int.Parse(res["ID"].ToString()), res["NOM"].ToString(),
+                    Materiel nouveau = new Materiel(res["CHEMINIMAGE"].ToString(), int.Parse(res["ID"].ToString()), res["MARQUE"].ToString(), res["MODELE"].ToString(),
                     res["CATEGORIE"].ToString(), int.Parse(res["PRIX"].ToString()));
                     LesMateriels.Add(nouveau);
                 }
