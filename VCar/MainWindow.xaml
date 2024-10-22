@@ -6,20 +6,19 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:VCar"
         mc:Ignorable="d"
-        WindowStartupLocation="Manual"
-        Title="Vcar - Connexion" Height="850" Width="1200" MinHeight="230" MinWidth="320">
+        WindowStartupLocation="CenterScreen"
+        Title="Vcar - Connexion" Height="450" Width="800" MinHeight="230" MinWidth="320">
 
     <Window.DataContext>
         <local:ApplicationData x:Name="data"/>
     </Window.DataContext>
 
     <Grid>
-
         <!-- Grid Connexion -->
-        <Grid x:Name="gridConnexion" Background="#FF141414" Visibility="Collapsed">
+        <Grid x:Name="gridConnexion" Background="#FF141414" Visibility="Visible">
             <StackPanel x:Name="stackConnexion" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="100" MinWidth="200" Background="#FF141414" Visibility="Visible">
                 <Label Content="Identifiant" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox x:Name="txtIdentifiant" TextWrapping="Wrap" FontSize="22" FontFamily="Calibri" Background="#B2FFFFFF" BorderBrush="White" Foreground="Black" Margin="0,0,0,20"/>
+                <TextBox x:Name="txtIdentifiant" TextWrapping="Wrap" FontSize="22" FontFamily="Calibri" Background="#B2FFFFFF" BorderBrush="White" Foreground="Black" Margin="0,0,0,20" CaretBrush="Black" SelectionBrush="Black"/>
                 <Label Content="Mot de passe" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                 <PasswordBox x:Name="txtPassword" FontSize="22" Background="#B2FFFFFF" BorderBrush="White" Foreground="Black"/>
                 <WrapPanel Margin="0,60,0,0">
@@ -44,7 +43,7 @@
         <!--Fin Grid Connexion-->
 
         <!-- Grid Accueil -->
-        <Grid x:Name="gridAccueil" Visibility="Visible" Background="#FF313131">
+        <Grid x:Name="gridAccueil" Visibility="Collapsed" Background="#FF313131">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="9*"/>
                 <ColumnDefinition Width="41*"/>
@@ -65,9 +64,10 @@
             <!-- Grid Droite Recherche-->
             <Grid x:Name="gridRecherche" Grid.Column="1" Visibility="Visible">
 
-                <Border CornerRadius="5" Background="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,80,0" Width="200" Height="20">
-                    <TextBox x:Name="txtRecherche" TextWrapping="Wrap" Text="Rechercher" Margin="2" VerticalAlignment="Center" BorderBrush="White" FontFamily="Roboto" GotFocus="txtRecherche_GotFocus"/>
-                </Border>
+                
+                <TextBox x:Name="txtRecherche" Style="{DynamicResource MaterialDesignTextBox}" TextWrapping="Wrap" Text="Rechercher" Margin="2,10,40,2" BorderBrush="White" FontFamily="Roboto" GotFocus="txtRecherche_GotFocus" Width="220" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="16" Foreground="White" CaretBrush="White" SelectionBrush="White" LostFocus="txtRecherche_LostFocus"/>
+                
+                
 
                 <ListBox x:Name="EquipmentList" SelectionMode="Multiple" Style="{DynamicResource MaterialDesignCardsListBox}" ItemsSource="{Binding LesMateriels}" Margin="10,50,10,10" BorderBrush="White">
                     <ListBox.ItemTemplate>

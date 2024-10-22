@@ -103,6 +103,12 @@ namespace VCar
             //butVoir.Background = Brushes.Black;
         }
 
-        
+        private void txtRecherche_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtRecherche.Text == "")
+            {
+                txtRecherche.Text = "Rechercher...";
+            }
+        }
     }
 }
