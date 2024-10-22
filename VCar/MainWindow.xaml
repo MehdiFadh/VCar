@@ -66,10 +66,11 @@
 
                 
                 <TextBox x:Name="txtRecherche" Style="{DynamicResource MaterialDesignTextBox}" TextWrapping="Wrap" Text="Rechercher" Margin="2,10,40,2" BorderBrush="White" FontFamily="Roboto" GotFocus="txtRecherche_GotFocus" Width="220" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="16" Foreground="White" CaretBrush="White" SelectionBrush="White" LostFocus="txtRecherche_LostFocus"/>
-                
-                
 
+
+                
                 <ListBox x:Name="EquipmentList" SelectionMode="Multiple" Style="{DynamicResource MaterialDesignCardsListBox}" ItemsSource="{Binding LesMateriels}" Margin="10,50,10,10" BorderBrush="White">
+
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -91,6 +92,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                
 
             </Grid>
             <!-- Fin Grid Droite Recherche-->
