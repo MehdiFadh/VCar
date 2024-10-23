@@ -83,11 +83,15 @@ namespace VCar
                     res["CATEGORIE"].ToString(), int.Parse(res["PRIX"].ToString()));
                     LesMateriels.Add(nouveau);
                 }
+
                 return dataTable.Rows.Count;
             }
             catch (NpgsqlException e)
             { Console.WriteLine("pb de requete : " + e); return 0; }
+
+
         }
+
 
         public int Create()
         {
@@ -144,6 +148,37 @@ namespace VCar
             }
 
         }
+
+        public void RefreshMateriels()
+        {
+            try
+            {
+                // Vider la collection actuelle
+                LesMateriels.Clear();
+
+                // Refaire la requête pour obtenir les matériels
+                String sql = "select CHEMINIMAGE, ID, MARQUE, MODELE, CATEGORIE, PRIX from VOITURE";
+
+                NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(sql, Connexion);
+                DataTable dataTable = new DataTable();
+                dataAdapter.Fill(dataTable);
+
+                // Remplir à nouveau la collection
+                foreach (DataRow res in dataTable.Rows)
+                {
+                    Materiel nouveau = new Materiel(res["CHEMINIMAGE"].ToString(), int.Parse(res["ID"].ToString()),
+                                                    res["MARQUE"].ToString(), res["MODELE"].ToString(),
+                                                    res["CATEGORIE"].ToString(), int.Parse(res["PRIX"].ToString()));
+                    LesMateriels.Add(nouveau);
+                }
+            }
+            catch (NpgsqlException e)
+            {
+                Console.WriteLine("pb de requête lors du rafraîchissement : " + e);
+                // Gestion d'erreur : à transformer en MsgBox
+            }
+        }
+
 
 
 

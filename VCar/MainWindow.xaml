@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:VCar"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Vcar - Connexion" Height="450" Width="800" MinHeight="230" MinWidth="320">
+        Title="Vcar - Connexion" Height="850" Width="1200" MinHeight="230" MinWidth="320">
 
     <Window.DataContext>
         <local:ApplicationData x:Name="data"/>
@@ -15,7 +15,7 @@
 
     <Grid>
         <!-- Grid Connexion -->
-        <Grid x:Name="gridConnexion" Background="#FF141414" Visibility="Visible">
+        <Grid x:Name="gridConnexion" Background="#FF141414" Visibility="Collapsed">
             <StackPanel x:Name="stackConnexion" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="100" MinWidth="200" Background="#FF141414" Visibility="Visible">
                 <Label Content="Identifiant" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                 <TextBox x:Name="txtIdentifiant" TextWrapping="Wrap" FontSize="22" FontFamily="Calibri" Background="#B2FFFFFF" BorderBrush="White" Foreground="Black" Margin="0,0,0,20" CaretBrush="Black" SelectionBrush="Black"/>
@@ -43,7 +43,7 @@
         <!--Fin Grid Connexion-->
 
         <!-- Grid Accueil -->
-        <Grid x:Name="gridAccueil" Visibility="Collapsed" Background="#FF313131">
+        <Grid x:Name="gridAccueil" Visibility="Visible" Background="#FF313131">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="9*"/>
                 <ColumnDefinition Width="41*"/>
@@ -52,25 +52,24 @@
             
             <!-- Grid Gauche Menu-->
             <Grid x:Name="gridMenu" Grid.Column="0">
-                <StackPanel Background="#FF272727">
+                
                     <Label Content="Vcar" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Foreground="White"/>
-                    <Button x:Name="butRecherche" Content="Recherche" Margin="0,59,0,0" Height="40" Click="butRecherche_Click" Background="Black" Foreground="White" BorderBrush="Black"/>
-                    <Button x:Name="butDemande" Content="Demande" Margin="0,24,0,0" Height="40" Click="butDemande_Click" Background="Black" Foreground="White" BorderBrush="Black"/>
-                    <Button x:Name="butContact" Content="Contact" Height="40" Click="butContact_Click" Background="Black" Foreground="White" Margin="0,491,0,0" BorderBrush="Black" VerticalAlignment="Bottom"/>
-                </StackPanel>
+                    <Button x:Name="butRecherche" Content="Recherche" Margin="0,170,0,0" Height="40" Click="butRecherche_Click" Background="Black" Foreground="White" BorderBrush="Black" VerticalAlignment="Top"/>
+                    <Button x:Name="butDemande" Content="Demande" Margin="0,230,0,0" Height="40" Click="butDemande_Click" Background="Black" Foreground="White" BorderBrush="Black" VerticalAlignment="Top"/>
+                    <Button x:Name="butContact" Content="Contact" Height="40" Click="butContact_Click" Background="Black" Foreground="White" BorderBrush="Black" VerticalAlignment="Bottom" Margin="0,0,0,30"/>
+                
             </Grid>
             
 
             <!-- Grid Droite Recherche-->
-            <Grid x:Name="gridRecherche" Grid.Column="1" Visibility="Visible">
+            <Grid x:Name="gridRecherche" Grid.Column="1" Visibility="Collapsed">
 
-                
-                <TextBox x:Name="txtRecherche" Style="{DynamicResource MaterialDesignTextBox}" TextWrapping="Wrap" Text="Rechercher" Margin="2,10,40,2" BorderBrush="White" FontFamily="Roboto" GotFocus="txtRecherche_GotFocus" Width="220" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="16" Foreground="White" CaretBrush="White" SelectionBrush="White" LostFocus="txtRecherche_LostFocus"/>
+                <Button x:Name="RefreshButton" Content="Rafraîchir" Width="100" Height="30" Background="#FF005FB8" Foreground="White" Margin="10,10,0,10" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF005FB8" Click="RefreshButton_Click" Cursor="Hand"/>
+                <TextBox x:Name="txtRecherche" Style="{DynamicResource MaterialDesignTextBox}" TextWrapping="Wrap" Text="Rechercher" Margin="2,10,40,2" BorderBrush="White" FontFamily="Roboto" GotFocus="txtRecherche_GotFocus" Width="220" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="16" Foreground="White" CaretBrush="White" SelectionBrush="White" LostFocus="txtRecherche_LostFocus" TextChanged="txtRecherche_TextChanged"/>
 
 
-                
-                <ListBox x:Name="EquipmentList" SelectionMode="Multiple" Style="{DynamicResource MaterialDesignCardsListBox}" ItemsSource="{Binding LesMateriels}" Margin="10,50,10,10" BorderBrush="White">
 
+                <ListBox x:Name="EquipmentList" SelectionMode="Multiple" PreviewMouseWheel="EquipmentList_PreviewMouseWheel" Style="{DynamicResource MaterialDesignCardsListBox}" ItemsSource="{Binding LesMateriels}" Margin="10,50,10,10" BorderBrush="White"   >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -87,15 +86,30 @@
                                 <TextBlock Text="{Binding Modele}" Grid.Column="2" FontSize="20" FontFamily="Calibri" VerticalAlignment="Center" Margin="5" Width="140"/>
                                 <TextBlock Text="{Binding Categorie}" Grid.Column="3" FontSize="20" FontFamily="Calibri" VerticalAlignment="Center" Margin="5" Width="80"/>
                                 <TextBlock Text="{Binding Prix}" Grid.Column="4" FontSize="20" FontFamily="Calibri" VerticalAlignment="Center" Margin="5"/>
-                                <Button x:Name="butVoirVoiture" Content="Voir la voiture" Grid.Column="5" Height="32" Background="#FF005FB8" Foreground="White" VerticalAlignment="Center" Margin="10,0,20,0" BorderBrush="#FF005FB8"/>
+                                <Button x:Name="butVoirVoiture" Content="Voir la voiture" Grid.Column="5" Height="32" Background="#FF005FB8" Foreground="White" VerticalAlignment="Center" Margin="10,0,20,0" BorderBrush="#FF005FB8" Click="butVoirVoiture_Click"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                
+              
+
 
             </Grid>
             <!-- Fin Grid Droite Recherche-->
+
+            <Grid x:Name="gridInfoVoiture" Grid.Column="2" Visibility="Visible">
+                <StackPanel>
+                    <Image x:Name="CarImage" Grid.Row="0" Grid.Column="0" Height="460" Margin="10" VerticalAlignment="Top"/>
+                    <TextBlock Text="Marque :" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="50,10,10,10" Foreground="White" FontSize="16"/>
+                    <TextBlock x:Name="CarBrand" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="50,10,10,10" Foreground="White"/>
+                    <TextBlock Text="Modèle :" FontWeight="Bold" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="50,10,10,10" Foreground="White" FontSize="16"/>
+                    <TextBlock x:Name="CarModel" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="50,10,10,10" Foreground="White"/>
+                    <TextBlock Text="Catégorie :" FontWeight="Bold" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="50,10,10,10" Foreground="White" FontSize="16"/>
+                    <TextBlock x:Name="CarCategory" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="50,10,10,10" Foreground="White"/>
+                    <TextBlock Text="Prix :" FontWeight="Bold" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="50,10,10,10" Foreground="White" FontSize="16"/>
+                    <TextBlock x:Name="CarPrice" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="50,10,10,10" Foreground="White"/>
+                </StackPanel>
+            </Grid>
 
             <!-- Grid Droite Demande-->
             <Grid x:Name="gridDemande" Grid.Column="1" Visibility="Collapsed">
