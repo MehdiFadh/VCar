@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Media3D;
 
 namespace VCar
@@ -16,16 +17,14 @@ namespace VCar
 
     public class ApplicationData
     {
-        private ObservableCollection<Materiel> lesMateriels;
         private NpgsqlConnection connexion = null;   // futur lien à la BD
+        private string connectionString = "Server=ep-morning-wood-a27nq1on.eu-central-1.aws.neon.tech;" +
+                                            "port=5432;" +
+                                            "Database=eligiusdb;" +
+                                            "uid=eligiusdb_owner;" +
+                                            "password=tf4Ag8qwiJoT;";
 
-        
 
-        public ObservableCollection<Materiel> LesMateriels
-        {
-            get { return this.lesMateriels; }
-            set { this.lesMateriels = value; }
-        }
 
 
         public NpgsqlConnection Connexion
@@ -44,7 +43,7 @@ namespace VCar
         public ApplicationData()
         {
             this.ConnexionBD();
-            this.Read();
+            this.GetVoitures();
         }
         public void ConnexionBD()
         {
@@ -62,34 +61,38 @@ namespace VCar
             }
             catch (Exception e)
             {
-                Console.WriteLine("pb de connexion : " + e);
-                // juste pour le debug : à transformer en MsgBox 
+                MessageBox.Show(e.Message);
             }
         }
 
-        public int Read()
+        public ObservableCollection<Voiture> GetVoitures()
         {
-            LesMateriels = new ObservableCollection<Materiel>();
-            String sql = "select CHEMINIMAGE, ID, MARQUE, MODELE, CATEGORIE, PRIX from VOITURE";
+            var voitures = new ObservableCollection<Voiture>();
 
-            try
+            using (var connection = new NpgsqlConnection(connectionString))
             {
-                NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(sql, Connexion);
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-                foreach (DataRow res in dataTable.Rows)
+                connection.Open();
+                using (var command = new NpgsqlCommand("SELECT id, marque, modele, categorie, prix, cheminImage FROM voituree", connection))
+                using (var reader = command.ExecuteReader())
                 {
-                    Materiel nouveau = new Materiel(res["CHEMINIMAGE"].ToString(), int.Parse(res["ID"].ToString()), res["MARQUE"].ToString(), res["MODELE"].ToString(),
-                    res["CATEGORIE"].ToString(), int.Parse(res["PRIX"].ToString()));
-                    LesMateriels.Add(nouveau);
+                    while (reader.Read())
+                    {
+                        var voiture = new Voiture
+                        {
+                            Id = reader.GetInt32(0),
+                            Marque = reader.GetString(1).Trim(),
+                            Modele = reader.GetString(2).Trim(),
+                            Categorie = reader.GetString(3).Trim(),
+                            Prix = (float)reader.GetDouble(4),
+                            CheminImage = reader["cheminImage"] as byte[] // Récupération du tableau d'octets
+                        };
+
+                        voitures.Add(voiture);
+                    }
                 }
-
-                return dataTable.Rows.Count;
             }
-            catch (NpgsqlException e)
-            { Console.WriteLine("pb de requete : " + e); return 0; }
 
-
+            return voitures;
         }
 
 
@@ -130,9 +133,9 @@ namespace VCar
 
         }
 
-        public int Delete()
+        public int Delete(int id)
         {
-            String sql = $"";
+            String sql = $"DELETE FROM VOITUREE WHERE ID =" + id;
             try
             {
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, Connexion);
@@ -148,40 +151,6 @@ namespace VCar
             }
 
         }
-
-        public void RefreshMateriels()
-        {
-            try
-            {
-                // Vider la collection actuelle
-                LesMateriels.Clear();
-
-                // Refaire la requête pour obtenir les matériels
-                String sql = "select CHEMINIMAGE, ID, MARQUE, MODELE, CATEGORIE, PRIX from VOITURE";
-
-                NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(sql, Connexion);
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-
-                // Remplir à nouveau la collection
-                foreach (DataRow res in dataTable.Rows)
-                {
-                    Materiel nouveau = new Materiel(res["CHEMINIMAGE"].ToString(), int.Parse(res["ID"].ToString()),
-                                                    res["MARQUE"].ToString(), res["MODELE"].ToString(),
-                                                    res["CATEGORIE"].ToString(), int.Parse(res["PRIX"].ToString()));
-                    LesMateriels.Add(nouveau);
-                }
-            }
-            catch (NpgsqlException e)
-            {
-                Console.WriteLine("pb de requête lors du rafraîchissement : " + e);
-                // Gestion d'erreur : à transformer en MsgBox
-            }
-        }
-
-
-
-
         public void DeconnexionBD()
         {
             try
@@ -191,8 +160,6 @@ namespace VCar
             catch (Exception e)
             { Console.WriteLine("pb à la déconnexion : " + e); }
         }
-
-
 
     }
 }

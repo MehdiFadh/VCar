@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,17 +22,22 @@ namespace VCar
     public partial class MainWindow : Window
     {
         private const double FacteurDefilement = 1;
-        public ObservableCollection<Materiel> LesVoitures = new ObservableCollection<Materiel>();
-        
+
+        public ObservableCollection<Voiture> Voitures { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             txtIdentifiant.Focus();
-            EquipmentList.ItemsSource = data.LesMateriels;
-            LesVoitures = data.LesMateriels;
+            LoadData();
+            DataContext = this;
         }
 
-
+        private void LoadData()
+        {
+            var service = new ApplicationData();
+            Voitures = service.GetVoitures();
+        }
 
         private void EquipmentList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -67,20 +73,6 @@ namespace VCar
             return null;
         }
 
-        private bool ContientMotClef(object obj)
-        {
-            Materiel unMateriel = obj as Materiel;
-
-            if (String.IsNullOrEmpty(txtRecherche.Text))
-            {
-                return true;
-            }
-
-            else
-                return (unMateriel.Marque.StartsWith(txtRecherche.Text, StringComparison.OrdinalIgnoreCase)
-                || unMateriel.Modele.StartsWith(txtRecherche.Text, StringComparison.OrdinalIgnoreCase));
-        }
-
         private void butAnnuler_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -88,7 +80,7 @@ namespace VCar
 
         private void butConnexion_Click(object sender, RoutedEventArgs e)
         {
-            if(txtIdentifiant.Text == "mehdi" && txtPassword.Password == "toothless")
+            if (txtIdentifiant.Text == "mehdi" && txtPassword.Password == "toothless")
             {
                 NpgsqlConnection connexion = new NpgsqlConnection();
                 connexion.ConnectionString = "Server=ep-morning-wood-a27nq1on.eu-central-1.aws.neon.tech;" +
@@ -117,7 +109,7 @@ namespace VCar
                 MessageBox.Show("L'identifiant ou le mot de passe est incorrect", "Echec de connexion", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            
+
         }
 
         private void butRecherche_Click(object sender, RoutedEventArgs e)
@@ -137,7 +129,7 @@ namespace VCar
         }
 
         private void Window_AuMilieu()
-        {   
+        {
             if (window != null)
             {
                 window.Left = (SystemParameters.WorkArea.Width - window.ActualWidth) / 2;
@@ -166,54 +158,111 @@ namespace VCar
             }
         }
 
-        private void txtRecherche_TextChanged(object sender, TextChangedEventArgs e)
+        public void RefreshMateriels()
         {
-            string searchText = txtRecherche.Text.ToLower();
+            var service = new ApplicationData();
 
-            // Assurez-vous que 'LesMateriels' est une ObservableCollection ou une liste que vous pouvez filtrer
-            var filteredList = data.LesMateriels
-                .Where(m => m.Marque.ToLower().Contains(searchText) ||
-                             m.Modele.ToLower().Contains(searchText) ||
-                             m.Categorie.ToLower().Contains(searchText))
-                .ToList();
-
-            // Mettre à jour la source de données de la ListBox
-            if (filteredList.Count > 0) 
-            {
-                EquipmentList.ItemsSource = filteredList;
-            }
-            
+            Voitures = service.GetVoitures();
+            VoitureListBox.ItemsSource = null; // Déconnecter la source de données pour forcer le rafraîchissement
+            VoitureListBox.ItemsSource = Voitures; // Réaffecter la nouvelle collection
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            data.RefreshMateriels();
+            RefreshMateriels();
         }
 
         private void butVoirVoiture_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            if (button == null) return;
-
-            // Récupérer les données associées au bouton
-            var selectedCar = button.DataContext as Materiel;
-
-            if (selectedCar != null)
+            if (button != null)
             {
-                // Mettre à jour les détails de la voiture dans la grille "CarDetailsGrid"
-                CarImage.Source = new BitmapImage(new Uri(selectedCar.CheminImage, UriKind.RelativeOrAbsolute));
-                CarBrand.Text = selectedCar.Marque;
-                CarModel.Text = selectedCar.Modele;
-                CarCategory.Text = selectedCar.Categorie;
-                CarPrice.Text = selectedCar.Prix.ToString("C");
-
-                // Afficher la grille "CarDetailsGrid" et masquer la grille "gridRecherche"
-                gridInfoVoiture.Visibility = Visibility.Visible;
-                gridRecherche.Visibility = Visibility.Collapsed;
+                var voiture = button.DataContext as Voiture;
+                if (voiture != null)
+                {
+                    // Afficher les détails de la voiture sélectionnée
+                    AfficherVoitureSelectionnee(voiture);
+                }
             }
-            else
+        }
+
+        private void AfficherVoitureSelectionnee(Voiture voiture)
+        {
+            // Mettre à jour les contrôles dans gridInfoVoiture avec les informations de la voiture sélectionnée
+            CarBrand.Text = voiture.Marque;
+            CarModel.Text = voiture.Modele;
+            CarCategory.Text = voiture.Categorie;
+            CarPrice.Text = voiture.Prix.ToString("C");
+
+            // Mettre à jour l'image de la voiture
+            CarImage.Source = voiture.GetImage();
+
+            // Afficher la gridInfoVoiture et masquer la gridRecherche
+            gridInfoVoiture.Visibility = Visibility.Visible;
+            gridRecherche.Visibility = Visibility.Collapsed;
+        }
+
+        private void butSupprimerVoiture_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult reponse = MessageBox.Show("Etes vous sur de vouloir supprimer cette voiture", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (reponse == MessageBoxResult.Yes)
             {
-                MessageBox.Show("Veuillez sélectionner une voiture valide.");
+                var button = sender as Button;
+                if (button == null) return;
+
+                // Récupérer les données associées au bouton
+                var selectedCar = button.DataContext as Voiture;
+                if (selectedCar != null)
+                {
+                    // Supprimer la voiture de la base de données
+                    data.Delete(selectedCar.Id);
+
+                    // Supprimer la voiture de la liste des matériels
+                    var carList = VoitureListBox.ItemsSource as ObservableCollection<Voiture>;
+                    if (carList != null)
+                    {
+                        carList.Remove(selectedCar);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("La voiture n'a pas pu être supprimée.");
+                }
+            }
+        }
+
+
+        private BitmapImage LoadImageFromBytes(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            using (var ms = new MemoryStream(imageData))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                image.Freeze(); // Permet de rendre l'image accessible depuis d'autres threads
+                return image;
+            }
+        }
+
+        public static ImageSource ByteArrayToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            using (var memoryStream = new MemoryStream(imageData))
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = memoryStream;
+                bitmapImage.EndInit();
+                return bitmapImage;
             }
         }
     }
