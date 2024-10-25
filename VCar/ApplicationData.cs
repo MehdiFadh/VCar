@@ -72,7 +72,7 @@ namespace VCar
             using (var connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
-                using (var command = new NpgsqlCommand("SELECT id, marque, modele, categorie, prix, cheminImage FROM voituree", connection))
+                using (var command = new NpgsqlCommand("SELECT id, marque, modele, categorie, prix, cheminImage FROM voiture", connection))
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
