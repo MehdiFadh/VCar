@@ -118,8 +118,9 @@
             <!-- Fin Grid Droite Demande-->
 
             <!-- Grid Droite Contact-->
-            <Grid x:Name="gridContact" Grid.Column="1" Visibility="Collapsed">
+            <Grid x:Name="gridContact" Grid.Column="1" Visibility="Visible">
                 <Label Content="Bienvenue dans la zone de contact" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <Label Content="Created by Mehdi FADHLOUNE" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#E5FFFFFF" FontStyle="Italic"/>
             </Grid>
             <!-- Fin Grid Droite Contact-->
 
