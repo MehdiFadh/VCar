@@ -88,7 +88,6 @@
                                 <TextBlock Text="{Binding Prix}" Grid.Column="4" FontSize="20" FontFamily="Calibri" VerticalAlignment="Center" Margin="5"/>
                                 <Button x:Name="butVoirVoiture" Content="Voir la voiture" Grid.Column="5" Height="32" Background="#FF005FB8" Foreground="White" VerticalAlignment="Center" Margin="10,0,20,0" BorderBrush="#FF005FB8" Click="butVoirVoiture_Click"/>
                                 <Button x:Name="butSupprimerVoiture" Content="Supprimer" Grid.Column="5" Height="32" Background="#FFB80000" Foreground="White" VerticalAlignment="Center" Margin="10,100,20,0" BorderBrush="#FFB80000" Click="butSupprimerVoiture_Click"/>
-                                <Button x:Name="butModifierVoiture" Content="Modifier" Grid.Column="5" Height="32" Background="#FFA7A7A7" Foreground="White" VerticalAlignment="Center" Margin="10,0,20,100" BorderBrush="#FFA7A7A7"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
